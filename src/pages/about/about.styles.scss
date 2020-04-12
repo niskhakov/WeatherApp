@@ -1,0 +1,15 @@
+.link {
+  color: orange;
+}
+
+.credits {
+  padding: 5px;
+  margin: 0 5px;
+
+  li {
+    list-style-type: none;
+  }
+  li:before {
+    content: "- ";
+  }
+}

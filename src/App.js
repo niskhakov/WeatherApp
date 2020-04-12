@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Header from "./components/header/header.component";
+import HomePage from "./pages/homepage/homepage.component";
+import AboutPage from "./pages/about/about.component";
+
+import "./App.css";
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentCity: "Moscow",
+      api: null,
+    };
+  }
+
+  render() {
+    const cityFunc = (city) => {
+      this.setState({ currentCity: city });
+      console.log(this.state);
+    };
+    return (
+      <Router className="app">
+        <Header />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={(props) => (
+              <HomePage
+                {...props}
+                changeCity={cityFunc}
+                city={() => this.state.currentCity}
+              />
+            )}
+          />
+          <Route exact path="/about" component={AboutPage} />
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;
